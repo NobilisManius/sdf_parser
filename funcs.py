@@ -56,11 +56,22 @@ def parse_cell(sliced_cells):
                 meta_data.append(line.translate({ord(i): None for i in ')'}))
 
         data_end = len(cell)
-        data = (cell[data_start:data_end])
+        data = cell[data_start:data_end]
+
+        for n, word in enumerate(data):
+            for k, char in enumerate(word):
+                if char == "(" or char == ")" or char == "\n":
+                    data[n] = data[n].translate({ord('('): None})
+                    data[n] = data[n].translate({ord(')'): None})
+                    data[n] = data[n].translate({ord('\n'): None})
+                data[n] = data[n].strip()
+
+        data = list(filter(('').__ne__, data)) # Remove all '' elems
         meta_data.append(copy.deepcopy(data[1]))
         del data[0:1]
         cell_obj = Cell(meta_data, data)
         cells.append(cell_obj)
+        print(data)
         data.clear()
         meta_data.clear()
     return cells
