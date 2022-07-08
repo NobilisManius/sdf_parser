@@ -1,6 +1,7 @@
 """
 Cell
 """
+import copy
 
 class Cell:
     cell_type = ''
@@ -8,8 +9,6 @@ class Cell:
     delay_name = ''         # Absolute or something
     delay = []
 
-    def __init__(self, cell_type, instance, delay_name, delay):
-        self.cell_type = cell_type
-        self.instance = instance
-        self.delay_name = delay_name
-        self.delay = delay
+    def __init__(self, meta, data):
+        self.cell_type, self.instance, self.delay_name = meta
+        self.delay = copy.deepcopy(data)
