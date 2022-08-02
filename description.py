@@ -2,7 +2,7 @@
 Delay file contains several parameters, such as divider and voltage.
 Since these parameters are constant, I decided to make a standalone class.
 """
-
+from params import *
 
 class Description:
     sdfversion = ''
@@ -20,7 +20,7 @@ class Description:
     def __init__(self):
         pass
 
-    def Description(self, data_line):
+    def define_descr(self, data_line):
         self.sdfversion, self.design, self.date, self.vendor, self.program, self.version, self.divider, self.voltage, \
         self.process, self.temperature, self.timescale = data_line
 
@@ -31,7 +31,7 @@ class Description:
         self.program = self.program.split()[1]
         self.version = self.version.split()[1]
         self.divider = self.divider.split()[1]
-        self.voltage = self.voltage.split()[1]
-        self.process = self.process.split()[1]
-        self.temperature = self.temperature.split()[1]
-        self.timescale = self.timescale.split()[1]
+        self.voltage = Parameter(self.voltage.split()[1])
+        self.process = Parameter(self.process.split()[1])
+        self.temperature = Parameter(self.temperature.split()[1])
+        self.timescale = self.timescale.split()[1] #TODO calc true value
